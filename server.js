@@ -6,10 +6,21 @@ const { Server } = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error("Origin not allowed by Socket.io CORS"));
+    },
     methods: ["GET", "POST"],
   },
 });
@@ -28,6 +39,15 @@ app.get("/", (_req, res) => {
   res.json({
     message: "Real-time chat server is running.",
     onlineUsers: Object.values(onlineUsers),
+    allowedOrigins,
+  });
+});
+
+app.get("/health", (_req, res) => {
+  res.json({
+    ok: true,
+    uptime: process.uptime(),
+    roomCount: Object.keys(roomHistories).length,
   });
 });
 
