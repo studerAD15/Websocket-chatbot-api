@@ -131,18 +131,24 @@ function App() {
       setOnlineUsers(users.filter((user) => user.room === ROOM));
     };
 
+    const handleChatHistory = (history) => {
+      setMessages(history);
+    };
+
     const handleTypingUsers = (users) => {
       setTypingUsers(users.filter((name) => name !== username));
     };
 
     socket.on("receive_message", handleMessage);
     socket.on("online_users", handleOnlineUsers);
+    socket.on("chat_history", handleChatHistory);
     socket.on("typing_users", handleTypingUsers);
 
     return () => {
       socket.emit("typing", { room: ROOM, username, isTyping: false });
       socket.off("receive_message", handleMessage);
       socket.off("online_users", handleOnlineUsers);
+      socket.off("chat_history", handleChatHistory);
       socket.off("typing_users", handleTypingUsers);
       socket.disconnect();
     };
@@ -515,23 +521,25 @@ function App() {
             content: '""',
             position: "absolute",
             inset: "-15% auto auto -8%",
-            width: 380,
-            height: 380,
+            width: 240,
+            height: 240,
             borderRadius: "50%",
             background:
               "radial-gradient(circle, rgba(124,58,237,0.24) 0%, rgba(124,58,237,0) 72%)",
-            filter: "blur(18px)",
+            filter: "blur(26px)",
+            opacity: 0.55,
           },
           "&::after": {
             content: '""',
             position: "absolute",
             inset: "auto -10% -12% auto",
-            width: 460,
-            height: 460,
+            width: 260,
+            height: 260,
             borderRadius: "50%",
             background:
               "radial-gradient(circle, rgba(20,184,166,0.2) 0%, rgba(20,184,166,0) 72%)",
-            filter: "blur(20px)",
+            filter: "blur(30px)",
+            opacity: 0.5,
           },
         }}
       >
@@ -575,12 +583,13 @@ function App() {
                   "&::after": {
                     content: '""',
                     position: "absolute",
-                    right: -60,
-                    bottom: -40,
-                    width: 180,
-                    height: 180,
+                    right: -90,
+                    bottom: -90,
+                    width: 120,
+                    height: 120,
                     borderRadius: "50%",
-                    background: "rgba(255,255,255,0.07)",
+                    background: "rgba(255,255,255,0.04)",
+                    filter: "blur(10px)",
                   },
                 }}
               >
