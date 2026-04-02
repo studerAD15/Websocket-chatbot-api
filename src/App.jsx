@@ -63,7 +63,7 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 24,
+    borderRadius: 12,
   },
   typography: {
     fontFamily: '"Trebuchet MS", "Segoe UI", Tahoma, sans-serif',
@@ -310,8 +310,8 @@ function App() {
             <Paper
               elevation={0}
               sx={{
-                overflow: "hidden",
-                borderRadius: 8,
+                overflow: "visible",
+                borderRadius: 3,
                 border: "1px solid rgba(255,255,255,0.1)",
                 boxShadow: "0 36px 120px rgba(0, 0, 0, 0.35)",
                 backdropFilter: "blur(24px)",
@@ -339,7 +339,7 @@ function App() {
                     background:
                       "linear-gradient(155deg, rgba(124,58,237,0.9) 0%, rgba(236,72,153,0.78) 42%, rgba(20,184,166,0.72) 100%)",
                     position: "relative",
-                    overflow: "hidden",
+                    overflow: "visible",
                     "&::after": {
                       content: '""',
                       position: "absolute",
@@ -548,8 +548,8 @@ function App() {
           <Paper
             elevation={0}
             sx={{
-              overflow: "hidden",
-              borderRadius: 8,
+              overflow: "visible",
+              borderRadius: 3,
               border: "1px solid rgba(255,255,255,0.08)",
               boxShadow: "0 30px 120px rgba(0, 0, 0, 0.38)",
               background:
@@ -579,10 +579,10 @@ function App() {
                   flexDirection: "column",
                   gap: 3,
                   position: "relative",
-                  overflow: "hidden",
+                  overflow: "visible",
                   "&::after": {
-                    content: '""',
-                    position: "absolute",
+                      content: '""',
+                      position: "absolute",
                     right: -90,
                     bottom: -90,
                     width: 120,
@@ -770,9 +770,8 @@ function App() {
                             variant="body2"
                             sx={{
                               mt: 0.25,
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
+                              whiteSpace: "normal",
+                              wordBreak: "break-word",
                             }}
                           >
                             {item.text}
@@ -881,6 +880,7 @@ function App() {
                     px: { xs: 2, md: 3.5 },
                     py: 2.5,
                     overflowY: "auto",
+                    overflowX: "hidden",
                     background:
                       "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)",
                   }}
@@ -1001,8 +1001,8 @@ function App() {
                                 px: 2.25,
                                 py: 1.5,
                                 borderRadius: isMine
-                                  ? "24px 24px 8px 24px"
-                                  : "24px 24px 24px 8px",
+                                  ? "16px 16px 4px 16px"
+                                  : "16px 16px 16px 4px",
                                 background: isMine
                                   ? "linear-gradient(135deg, #7c3aed 0%, #ec4899 55%, #14b8a6 100%)"
                                   : alpha("#ffffff", 0.08),
@@ -1053,6 +1053,7 @@ function App() {
                                       color: isMine ? "white" : "text.primary",
                                       lineHeight: 1.6,
                                       whiteSpace: "pre-wrap",
+                                      wordBreak: "break-word",
                                     }}
                                   >
                                     {msg.text}
@@ -1164,6 +1165,7 @@ function App() {
                         },
                       }}
                       sx={{
+                        flex: 1,
                         "& .MuiOutlinedInput-notchedOutline": {
                           borderColor: "rgba(255,255,255,0.08)",
                         },
@@ -1177,9 +1179,10 @@ function App() {
                       onMouseLeave={() => setHoverSend(false)}
                       onMouseDown={() => setHoverSend(false)}
                       sx={{
-                        px: { xs: 2.5, md: 3.5 },
+                        px: { xs: 2.5, md: 3 },
                         py: { xs: 1.4, sm: "auto" },
-                        borderRadius: 999,
+                        minWidth: { xs: "100%", sm: 120 },
+                        borderRadius: 3,
                         background:
                           "linear-gradient(135deg, #7c3aed 0%, #ec4899 55%, #14b8a6 100%)",
                         boxShadow: "0 18px 40px rgba(124,58,237,0.32)",
