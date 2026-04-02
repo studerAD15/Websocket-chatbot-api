@@ -21,7 +21,6 @@ import {
   Typography,
   createTheme,
 } from "@mui/material";
-import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import BoltRoundedIcon from "@mui/icons-material/BoltRounded";
 import CircleRoundedIcon from "@mui/icons-material/CircleRounded";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
@@ -33,12 +32,6 @@ import StarsRoundedIcon from "@mui/icons-material/StarsRounded";
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
 const ROOM = "global";
-const SUGGESTIONS = [
-  "Give me a quick summary of the app",
-  "Suggest 3 UI improvements",
-  "How can we add private rooms?",
-  "Write a welcome message for the room",
-];
 
 const noiseBackground =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E\")";
@@ -244,11 +237,6 @@ function App() {
       event.preventDefault();
       handleSendMessage();
     }
-  };
-
-  const handleSuggestionClick = (suggestion) => {
-    setMessage(suggestion);
-    sendText(suggestion);
   };
 
   if (!username) {
@@ -1124,27 +1112,6 @@ function App() {
                     bgcolor: alpha("#090d1a", 0.56),
                   }}
                 >
-                  <Stack direction="row" spacing={1} sx={{ mb: 1.5, flexWrap: "wrap" }}>
-                    {SUGGESTIONS.map((suggestion) => (
-                      <Chip
-                        key={suggestion}
-                        icon={<AutoAwesomeRoundedIcon />}
-                        label={suggestion}
-                        onClick={() => handleSuggestionClick(suggestion)}
-                        sx={{
-                          color: "text.primary",
-                          bgcolor: alpha("#ffffff", 0.06),
-                          border: "1px solid rgba(255,255,255,0.06)",
-                          transition: "transform 160ms ease, background 160ms ease",
-                          "&:hover": {
-                            transform: "translateY(-1px)",
-                            bgcolor: alpha("#ffffff", 0.12),
-                          },
-                        }}
-                      />
-                    ))}
-                  </Stack>
-
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
                     <TextField
                       fullWidth
