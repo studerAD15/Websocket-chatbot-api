@@ -1186,38 +1186,63 @@ function App() {
                         },
                       }}
                     />
-                    <Button
-                      variant="contained"
-                      onClick={handleSendMessage}
-                      endIcon={<SendRoundedIcon />}
-                      onMouseEnter={() => setHoverSend(true)}
-                      onMouseLeave={() => setHoverSend(false)}
-                      onMouseDown={() => setHoverSend(false)}
-                      sx={{
-                        px: { xs: 2.5, md: 3 },
-                        py: { xs: 1.4, sm: "auto" },
-                        minWidth: { xs: "100%", sm: 120 },
-                        borderRadius: 3,
-                        background:
-                          "linear-gradient(135deg, #7c3aed 0%, #ec4899 55%, #14b8a6 100%)",
-                        boxShadow: "0 18px 40px rgba(124,58,237,0.32)",
-                        whiteSpace: "nowrap",
-                        transition: "transform 180ms ease, box-shadow 180ms ease",
-                        "&:hover": {
-                          transform: "translateY(-1px)",
-                          boxShadow: "0 24px 44px rgba(124,58,237,0.38)",
-                        },
-                        "&:active": {
-                          transform: "scale(0.97)",
-                        },
-                        "& .MuiButton-endIcon": {
-                          transform: hoverSend ? "rotate(-18deg)" : "rotate(0deg)",
-                          transition: "transform 180ms ease",
-                        },
-                      }}
+                    <Stack
+                      direction={{ xs: "column", sm: "row" }}
+                      spacing={1.2}
+                      sx={{ width: { xs: "100%", sm: "auto" } }}
                     >
-                      Send
-                    </Button>
+                      <Button
+                        variant="contained"
+                        onClick={handleSendMessage}
+                        endIcon={<SendRoundedIcon />}
+                        onMouseEnter={() => setHoverSend(true)}
+                        onMouseLeave={() => setHoverSend(false)}
+                        onMouseDown={() => setHoverSend(false)}
+                        sx={{
+                          px: { xs: 2.5, md: 3 },
+                          py: { xs: 1.4, sm: "auto" },
+                          minWidth: { xs: "100%", sm: 120 },
+                          borderRadius: 3,
+                          background:
+                            "linear-gradient(135deg, #7c3aed 0%, #ec4899 55%, #14b8a6 100%)",
+                          boxShadow: "0 18px 40px rgba(124,58,237,0.32)",
+                          whiteSpace: "nowrap",
+                          transition: "transform 180ms ease, box-shadow 180ms ease",
+                          "&:hover": {
+                            transform: "translateY(-1px)",
+                            boxShadow: "0 24px 44px rgba(124,58,237,0.38)",
+                          },
+                          "&:active": {
+                            transform: "scale(0.97)",
+                          },
+                          "& .MuiButton-endIcon": {
+                            transform: hoverSend ? "rotate(-18deg)" : "rotate(0deg)",
+                            transition: "transform 180ms ease",
+                          },
+                        }}
+                      >
+                        Send
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        onClick={handleResetChat}
+                        startIcon={<RestartAltRoundedIcon />}
+                        sx={{
+                          py: { xs: 1.4, sm: "auto" },
+                          minWidth: { xs: "100%", sm: 130 },
+                          borderRadius: 3,
+                          borderColor: "rgba(251,191,36,0.5)",
+                          color: "#fde68a",
+                          whiteSpace: "nowrap",
+                          "&:hover": {
+                            borderColor: "rgba(251,191,36,0.85)",
+                            bgcolor: alpha("#f59e0b", 0.1),
+                          },
+                        }}
+                      >
+                        Reset Chat
+                      </Button>
+                    </Stack>
                   </Stack>
                 </Box>
               </Stack>
