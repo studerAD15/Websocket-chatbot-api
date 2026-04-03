@@ -210,6 +210,21 @@ io.on("connection", (socket) => {
     removeTypingUser(room, effectiveUsername);
   });
 
+  socket.on("reset_chat", ({ room = DEFAULT_ROOM } = {}) => {
+    const targetRoom = (room || DEFAULT_ROOM).trim() || DEFAULT_ROOM;
+    const username = socket.data.username || "A user";
+
+    roomHistories[targetRoom] = [];
+    delete roomTypingUsers[targetRoom];
+    emitTypingUsers(targetRoom);
+
+    io.to(targetRoom).emit("chat_cleared", {
+      room: targetRoom,
+      by: username,
+      timestamp: new Date().toISOString(),
+    });
+  });
+
   socket.on("disconnect", () => {
     const { username, room } = socket.data;
 

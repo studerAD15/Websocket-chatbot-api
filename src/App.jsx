@@ -27,6 +27,7 @@ import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
 import NightlifeRoundedIcon from "@mui/icons-material/NightlifeRounded";
 import NotificationsActiveRoundedIcon from "@mui/icons-material/NotificationsActiveRounded";
+import RestartAltRoundedIcon from "@mui/icons-material/RestartAltRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import StarsRoundedIcon from "@mui/icons-material/StarsRounded";
 
@@ -146,10 +147,16 @@ function App() {
       setTypingUsers(users.filter((name) => name !== username));
     };
 
+    const handleChatCleared = () => {
+      setMessages([]);
+      setTypingUsers([]);
+    };
+
     socket.on("receive_message", handleMessage);
     socket.on("online_users", handleOnlineUsers);
     socket.on("chat_history", handleChatHistory);
     socket.on("typing_users", handleTypingUsers);
+    socket.on("chat_cleared", handleChatCleared);
 
     return () => {
       socket.emit("typing", { room: ROOM, username, isTyping: false });
@@ -157,6 +164,7 @@ function App() {
       socket.off("online_users", handleOnlineUsers);
       socket.off("chat_history", handleChatHistory);
       socket.off("typing_users", handleTypingUsers);
+      socket.off("chat_cleared", handleChatCleared);
       socket.disconnect();
     };
   }, [username]);
@@ -244,6 +252,14 @@ function App() {
 
   const handleSendMessage = () => {
     sendText(message);
+  };
+
+  const handleResetChat = () => {
+    if (!username) {
+      return;
+    }
+
+    socket.emit("reset_chat", { room: ROOM });
   };
 
   const handleKeyDown = (event) => {
@@ -829,6 +845,24 @@ function App() {
                           border: "1px solid rgba(153,246,228,0.16)",
                         }}
                       />
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={handleResetChat}
+                        startIcon={<RestartAltRoundedIcon />}
+                        sx={{
+                          borderColor: "rgba(251,191,36,0.5)",
+                          color: "#fde68a",
+                          borderRadius: 999,
+                          px: 1.5,
+                          "&:hover": {
+                            borderColor: "rgba(251,191,36,0.85)",
+                            bgcolor: alpha("#f59e0b", 0.1),
+                          },
+                        }}
+                      >
+                        Reset Chat
+                      </Button>
                     </Stack>
                   </Stack>
 
