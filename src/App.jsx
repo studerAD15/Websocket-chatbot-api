@@ -30,7 +30,21 @@ import NotificationsActiveRoundedIcon from "@mui/icons-material/NotificationsAct
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import StarsRoundedIcon from "@mui/icons-material/StarsRounded";
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
+const getDefaultSocketUrl = () => {
+  if (typeof window === "undefined") {
+    return "http://localhost:5000";
+  }
+
+  const { hostname } = window.location;
+
+  if (hostname === "localhost" || hostname === "127.0.0.1") {
+    return "http://localhost:5000";
+  }
+
+  return "https://websocket-chatbot-api.onrender.com";
+};
+
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || getDefaultSocketUrl();
 const ROOM = "global";
 
 const noiseBackground =
